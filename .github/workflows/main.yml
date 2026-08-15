@@ -1,0 +1,23 @@
+name: Padel Price Monitor
+
+on:
+  schedule:
+    - cron: '0 2 * * *'  # 6 AM UAE time (2 AM UTC)
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run price monitor
+        env:
+          PADEL_EMAIL: ${{ secrets.PADEL_EMAIL }}
+          PADEL_APP_PASSWORD: ${{ secrets.PADEL_APP_PASSWORD }}
+        run: python deploy_price_monitor.py "$PADEL_EMAIL" "$PADEL_APP_PASSWORD"
