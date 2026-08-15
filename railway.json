@@ -1,0 +1,8 @@
+{
+  "build": {
+    "builder": "nixpacks"
+  },
+  "deploy": {
+    "startCommand": "python deploy_price_monitor.py $PADEL_EMAIL $PADEL_APP_PASSWORD"
+  }
+}
